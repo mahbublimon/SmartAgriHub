@@ -1,0 +1,97 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+.Rpage{
+     
+    background-image: url('./images/SignupBackground.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: #f4f4f4;
+
+}
+.container {
+    margin-left: 100px;
+    background-color: #8EA821;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #8EA821;
+}
+
+.btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+.google-btn {
+    background-color: #db4437;
+    width: 90%;
+}
+
+.google-btn:hover {
+    background-color: #c23326;
+}
+
+.google-btn img {
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 10px;
+}
+.radio-group{
+    margin-bottom: 15px;
+  }
+.radio-group label{
+    display: inline-block;
+    margin-right: 10px;
+  }
+@media (max-width:480px) {
+    .container {
+        width: 300px;
+    }
+}
