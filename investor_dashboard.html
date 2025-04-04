@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Investor Dashboard</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="investor_dashboard.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="container py-4">
+      <div class="row text-center">
+        <h2>Investor Dashboard</h2>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="dashboard-card text-center">
+            <h5>Total Investments</h5>
+            <h3 class="text-success">$15,000</h3>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="dashboard-card text-center">
+            <h5>Pending Investment Requests</h5>
+            <h3 class="text-warning">3</h3>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="dashboard-card text-center">
+            <h5>ROI (Return on Investment)</h5>
+            <h3 class="text-primary">12.5%</h3>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-md-6">
+          <div class="chart-container">
+            <canvas id="investmentChart"></canvas>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="chart-container">
+            <canvas id="roiChart"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-4 text-center">
+        <div class="col-md-6">
+          <button class="btn btn-custom btn-lg">Invest Now</button>
+        </div>
+        <div class="col-md-6">
+          <button class="btn btn-custom btn-lg">
+            View Investment Requests
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const investmentCtx = document
+        .getElementById("investmentChart")
+        .getContext("2d");
+      const investmentChart = new Chart(investmentCtx, {
+        type: "bar",
+        data: {
+          labels: ["Q1", "Q2", "Q3", "Q4"],
+          datasets: [
+            {
+              label: "Investment Growth",
+              data: [3000, 5000, 7000, 15000],
+              backgroundColor: "#ff9800",
+            },
+          ],
+        },
+      });
+
+      const roiCtx = document.getElementById("roiChart").getContext("2d");
+      const roiChart = new Chart(roiCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "ROI Trend",
+              data: [5, 7, 10, 12, 11, 12.5],
+              borderColor: "#1e3c72",
+              backgroundColor: "rgba(30, 60, 114, 0.2)",
+              fill: true,
+            },
+          ],
+        },
+      });
+    </script>
+  </body>
+</html>
+s

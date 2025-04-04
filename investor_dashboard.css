@@ -1,0 +1,32 @@
+
+      body {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #fff;
+        font-family: Arial, sans-serif;
+      }
+      .dashboard-card {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 20px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+        color: #333;
+        transition: transform 0.3s ease-in-out;
+      }
+      .dashboard-card:hover {
+        transform: scale(1.05);
+      }
+      .chart-container {
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      }
+      .btn-custom {
+        background-color: #ff9800;
+        color: white;
+        border: none;
+      }
+      .btn-custom:hover {
+        background-color: #e68900;
+      }
+    
