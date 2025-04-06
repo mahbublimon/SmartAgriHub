@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+    <style>
+      body {
+        background: linear-gradient(135deg, #1e3c72, #2a5298);
+        color: #fff;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+      .dashboard-card {
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        color: #fff;
+        transition: transform 0.3s ease-in-out;
+      }
+      .dashboard-card:hover {
+        transform: translateY(-5px);
+      }
+      .section-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #f7c548;
+      }
+      .btn-custom {
+        background-color: #f7c548;
+        border: none;
+        color: #333;
+      }
+      .btn-custom:hover {
+        background-color: #d4a118;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-4">
+      <h2 class="text-center mb-4">Admin Dashboard</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="dashboard-card">
+            <h5 class="section-title">Manage Users</h5>
+            <p>View, approve, or block Farmers, Consumers, and Investors.</p>
+            <button class="btn btn-custom btn-sm">Manage Users</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="dashboard-card">
+            <h5 class="section-title">Review Investments</h5>
+            <p>Monitor incoming investments and pending requests.</p>
+            <button class="btn btn-custom btn-sm">Investment Panel</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="dashboard-card">
+            <h5 class="section-title">Crop Collection & Sales</h5>
+            <p>Track collected crops and manage marketplace listings.</p>
+            <button class="btn btn-custom btn-sm">Manage Crops</button>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="dashboard-card">
+            <h5 class="section-title">Loan Management</h5>
+            <p>Handle farmer loan approvals, repayments, and reports.</p>
+            <button class="btn btn-custom btn-sm">Loans Panel</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="dashboard-card">
+            <h5 class="section-title">Consultation & Feedback</h5>
+            <p>Monitor ongoing consultations and view feedback from users.</p>
+            <button class="btn btn-custom btn-sm">Consultation Center</button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="dashboard-card">
+            <h5 class="section-title">Reports & Analytics</h5>
+            <p>
+              Access system-wide analytics, user trends, and financial reports.
+            </p>
+            <button class="btn btn-custom btn-sm">View Reports</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
