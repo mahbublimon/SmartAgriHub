@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Orders | Smart Agri Hub Market</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --secondary-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .agri-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .order-tracking-container {
+            max-width: 1200px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .order-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+        }
+        
+        .order-body {
+            padding: 30px;
+        }
+        
+        .order-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+        
+        .order-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .farmer-badge {
+            background-color: #e9f7ef;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin-top: 20px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #e0e0e0;
+        }
+        
+        .timeline-step {
+            position: relative;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 0;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            border: 4px solid white;
+        }
+        
+        .timeline-step.active::before {
+            background: var(--primary-color);
+        }
+        
+        .timeline-step.completed::before {
+            background: var(--primary-color);
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+        
+        .delivery-estimate {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        
+        .btn-track {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 8px 20px;
+            font-weight: 600;
+            border: none;
+        }
+        
+        .btn-track:hover {
+            background-color: #218838;
+        }
+        
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-processing {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+        
+        .status-shipped {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-delivered {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        
+        @media (max-width: 768px) {
+            .order-tracking-container {
+                margin: 15px;
+            }
+            
+            .timeline {
+                padding-left: 30px;
+            }
+            
+            .timeline::before {
+                left: 5px;
+            }
+            
+            .timeline-step::before {
+                left: -28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="agri-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i> Smart Agri Hub Market
+                </div>
+                <div>
+                    <a href="#" class="btn btn-light btn-sm">
+                        <i class="fas fa-user me-1"></i> My Account
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Order Tracking Section -->
+    <div class="container order-tracking-container">
+        <div class="order-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2><i class="fas fa-clipboard-list me-2"></i> My Orders</h2>
+                <div>
+                    <input type="text" class="form-control" placeholder="Search orders...">
+                </div>
+            </div>
+        </div>
+        
+        <div class="order-body">
+            <!-- Order Filter -->
+            <div class="row mb-4">
+                <div class="col-md-3 mb-2">
+                    <select class="form-select">
+                        <option>All Orders</option>
+                        <option>Pending</option>
+                        <option>Processing</option>
+                        <option>Shipped</option>
+                        <option>Delivered</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-2">
+                    <select class="form-select">
+                        <option>Last 30 Days</option>
+                        <option>Last 3 Months</option>
+                        <option>2023</option>
+                        <option>All Time</option>
+                    </select>
+                </div>
+                <div class="col-md-6 text-end mb-2">
+                    <button class="btn btn-outline-secondary me-2">
+                        <i class="fas fa-download me-1"></i> Export
+                    </button>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-filter me-1"></i> Apply Filters
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Order Card - Recent (Processing) -->
+            <div class="order-card">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between">
+                            <h5>Order #SAH-78945</h5>
+                            <span class="status-badge status-processing">Processing</span>
+                        </div>
+                        <p class="text-muted">Placed on October 15, 2023</p>
+                        
+                        <div class="row mt-3">
+                            <div class="col-2">
+                                <img src="https://via.placeholder.com/150?text=Organic+Rice" alt="Organic Rice" class="product-img">
+                            </div>
+                            <div class="col-6">
+                                <h6>Fresh Organic Rice (5kg)</h6>
+                                <p class="text-muted small mb-1">Farm: Green Fields Organic</p>
+                                <span class="farmer-badge"><i class="fas fa-user-tie me-1"></i> Farmer: Abdul Karim</span>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="mb-1">৳450 × 2</p>
+                                <p class="fw-bold">৳900</p>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-3">
+                            <div class="col-2">
+                                <img src="https://via.placeholder.com/150?text=Seasonal+Fruits" alt="Seasonal Fruits" class="product-img">
+                            </div>
+                            <div class="col-6">
+                                <h6>Seasonal Fruit Basket</h6>
+                                <p class="text-muted small mb-1">Farm: Mango Valley</p>
+                                <span class="farmer-badge"><i class="fas fa-user-tie me-1"></i> Farmer: Rahim Ahmed</span>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="mb-1">৳600 × 1</p>
+                                <p class="fw-bold">৳600</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="delivery-estimate">
+                            <h6><i class="fas fa-truck me-2"></i> Delivery Progress</h6>
+                            
+                            <div class="timeline">
+                                <div class="timeline-step completed">
+                                    <p class="mb-1 fw-bold">Order Placed</p>
+                                    <p class="small text-muted">Oct 15, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step completed">
+                                    <p class="mb-1 fw-bold">Order Confirmed</p>
+                                    <p class="small text-muted">Oct 15, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step active">
+                                    <p class="mb-1 fw-bold">Processing</p>
+                                    <p class="small text-muted">Expected: Oct 16</p>
+                                </div>
+                                
+                                <div class="timeline-step">
+                                    <p class="mb-1">Shipped</p>
+                                </div>
+                                
+                                <div class="timeline-step">
+                                    <p class="mb-1">Delivered</p>
+                                    <p class="small text-muted">Est: Oct 18-19</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button class="btn btn-track w-100">
+                                    <i class="fas fa-map-marker-alt me-1"></i> Track Package
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <p class="mb-1"><strong>Delivery Address:</strong> House 12, Road 5, Dhanmondi, Dhaka 1209</p>
+                        <p class="mb-1"><strong>Payment Method:</strong> bKash (TRX ID: BK789456123)</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-secondary me-2">
+                                <i class="fas fa-question-circle me-1"></i> Help
+                            </button>
+                            <button class="btn btn-outline-danger">
+                                <i class="fas fa-times me-1"></i> Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Card - Shipped -->
+            <div class="order-card">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between">
+                            <h5>Order #SAH-78231</h5>
+                            <span class="status-badge status-shipped">Shipped</span>
+                        </div>
+                        <p class="text-muted">Placed on October 10, 2023</p>
+                        
+                        <div class="row mt-3">
+                            <div class="col-2">
+                                <img src="https://via.placeholder.com/150?text=Fresh+Vegetables" alt="Fresh Vegetables" class="product-img">
+                            </div>
+                            <div class="col-6">
+                                <h6>Fresh Vegetable Pack</h6>
+                                <p class="text-muted small mb-1">Farm: Dhaka Greens</p>
+                                <span class="farmer-badge"><i class="fas fa-user-tie me-1"></i> Farmer: Fatema Begum</span>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="mb-1">৳350 × 1</p>
+                                <p class="fw-bold">৳350</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="delivery-estimate">
+                            <h6><i class="fas fa-truck me-2"></i> Delivery Progress</h6>
+                            
+                            <div class="timeline">
+                                <div class="timeline-step completed">
+                                    <p class="mb-1 fw-bold">Order Placed</p>
+                                    <p class="small text-muted">Oct 10, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step completed">
+                                    <p class="mb-1 fw-bold">Order Confirmed</p>
+                                    <p class="small text-muted">Oct 10, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step completed">
+                                    <p class="mb-1 fw-bold">Processing</p>
+                                    <p class="small text-muted">Oct 11, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step active">
+                                    <p class="mb-1 fw-bold">Shipped</p>
+                                    <p class="small text-muted">Oct 12, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step">
+                                    <p class="mb-1">Delivered</p>
+                                    <p class="small text-muted">Est: Oct 14</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button class="btn btn-track w-100">
+                                    <i class="fas fa-map-marker-alt me-1"></i> Track Package
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <p class="mb-1"><strong>Delivery Address:</strong> House 45, Road 7, Mirpur, Dhaka 1216</p>
+                        <p class="mb-1"><strong>Payment Method:</strong> Cash on Delivery (+৳20 fee)</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-secondary me-2">
+                                <i class="fas fa-question-circle me-1"></i> Help
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-headset me-1"></i> Support
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Card - Delivered -->
+            <div class="order-card">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between">
+                            <h5>Order #SAH-77542</h5>
+                            <span class="status-badge status-delivered">Delivered</span>
+                        </div>
+                        <p class="text-muted">Placed on October 5, 2023</p>
+                        
+                        <div class="row mt-3">
+                            <div class="col-2">
+                                <img src="https://via.placeholder.com/150?text=Organic+Rice" alt="Organic Rice" class="product-img">
+                            </div>
+                            <div class="col-6">
+                                <h6>Organic Rice (10kg)</h6>
+                                <p class="text-muted small mb-1">Farm: Green Fields Organic</p>
+                                <span class="farmer-badge"><i class="fas fa-user-tie me-1"></i> Farmer: Abdul Karim</span>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="mb-1">৳900 × 1</p>
+                                <p class="fw-bold">৳900</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="delivery-estimate">
+                            <h6><i class="fas fa-check-circle me-2"></i> Delivery Completed</h6>
+                            
+                            <div class="timeline">
+                                <div class="timeline-step completed">
+                                    <p class="mb-1">Order Placed</p>
+                                    <p class="small text-muted">Oct 5, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step completed">
+                                    <p class="mb-1">Order Confirmed</p>
+                                    <p class="small text-muted">Oct 5, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step completed">
+                                    <p class="mb-1">Processing</p>
+                                    <p class="small text-muted">Oct 6, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step completed">
+                                    <p class="mb-1">Shipped</p>
+                                    <p class="small text-muted">Oct 7, 2023</p>
+                                </div>
+                                
+                                <div class="timeline-step completed">
+                                    <p class="mb-1 fw-bold">Delivered</p>
+                                    <p class="small text-muted">Oct 8, 2023</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-3">
+                                <button class="btn btn-outline-success w-100">
+                                    <i class="fas fa-star me-1"></i> Rate Your Order
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-3">
+                    <div class="col-md-8">
+                        <p class="mb-1"><strong>Delivered to:</strong> House 23, Road 11, Banani, Dhaka 1213</p>
+                        <p class="mb-1"><strong>Payment Method:</strong> Nagad (TRX ID: NG789456123)</p>
+                    </div>
+                    <div class="col-md-4 text-end">
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-outline-secondary me-2">
+                                <i class="fas fa-redo me-1"></i> Reorder
+                            </button>
+                            <button class="btn btn-outline-primary">
+                                <i class="fas fa-file-invoice me-1"></i> Invoice
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-leaf me-2"></i> Smart Agri Hub Market</h5>
+                    <p>Connecting you directly with farmers for the freshest produce.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Track Order</a></li>
+                        <li><a href="#" class="text-white">FAQs</a></li>
+                        <li><a href="#" class="text-white">Return Policy</a></li>
+                        <li><a href="#" class="text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Need Help?</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i> 09612-123456</li>
+                        <li><i class="fas fa-envelope me-2"></i> support@smartagrimarket.com.bd</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Farm Fresh Plaza, Dhanmondi, Dhaka</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">© 2025 Smart Agri Hub Market. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
