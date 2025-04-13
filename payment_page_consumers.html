@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Agri Hub - Consumer Payment</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #28a745;
+            --secondary-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .agri-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        .payment-container {
+            max-width: 1000px;
+            margin: 30px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .payment-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+        }
+        
+        .payment-body {
+            padding: 30px;
+        }
+        
+        .product-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+        
+        .product-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .farmer-badge {
+            background-color: #e9f7ef;
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+        
+        .payment-methods .form-check-label {
+            display: flex;
+            align-items: center;
+        }
+        
+        .payment-methods .form-check-label i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .btn-pay {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 12px 30px;
+            font-weight: 600;
+            border: none;
+            width: 100%;
+        }
+        
+        .btn-pay:hover {
+            background-color: #218838;
+        }
+        
+        .summary-card {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+        
+        .mfs-logo {
+            height: 24px;
+            margin-right: 10px;
+        }
+        
+        .delivery-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+        
+        .delivery-option.selected {
+            border-color: var(--primary-color);
+            background-color: #e9f7ef;
+        }
+        
+        @media (max-width: 768px) {
+            .payment-container {
+                margin: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="agri-header">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>Smart Agri Hub Market
+                </div>
+                <div>
+                    <span class="badge bg-light text-dark">
+                        <i class="fas fa-phone-alt me-1"></i> Customer Support: 09612-123456
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Payment Section -->
+    <div class="container payment-container">
+        <div class="payment-header">
+            <h2><i class="fas fa-taka-sign me-2"></i> Complete Your Order</h2>
+            <p class="mb-0">Secure payment for fresh farm products</p>
+        </div>
+        
+        <div class="payment-body">
+            <div class="row">
+                <!-- Order Details -->
+                <div class="col-md-8">
+                    <h4 class="mb-4"><i class="fas fa-shopping-basket me-2"></i> Your Order</h4>
+                    
+                    <!-- Delivery Address -->
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5><i class="fas fa-map-marker-alt me-2 text-primary"></i> Delivery Address</h5>
+                            <p class="mb-1"><strong>Fahim Hasan</strong></p>
+                            <p class="mb-1">House 12, Road 5, Dhanmondi</p>
+                            <p class="mb-1">Dhaka 1209, Bangladesh</p>
+                            <p class="mb-0"><i class="fas fa-phone me-1"></i> 01712345678</p>
+                            <a href="#" class="btn btn-sm btn-outline-primary mt-2">Change Address</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Delivery Options -->
+                    <h5 class="mt-4 mb-3"><i class="fas fa-truck me-2"></i> Delivery Options</h5>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="delivery-option selected" onclick="selectDelivery(this, 'standard')">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="deliveryOption" id="standardDelivery" checked>
+                                    <label class="form-check-label fw-bold" for="standardDelivery">
+                                        Standard Delivery
+                                    </label>
+                                </div>
+                                <p class="mb-0 text-muted">2-3 business days</p>
+                                <p class="mb-0 fw-bold">৳60</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="delivery-option" onclick="selectDelivery(this, 'express')">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="deliveryOption" id="expressDelivery">
+                                    <label class="form-check-label fw-bold" for="expressDelivery">
+                                        Express Delivery
+                                    </label>
+                                </div>
+                                <p class="mb-0 text-muted">Next day delivery</p>
+                                <p class="mb-0 fw-bold">৳120</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ordered Products -->
+                    <h5 class="mt-4 mb-3"><i class="fas fa-box-open me-2"></i> Ordered Items</h5>
+                    
+                    <div class="product-card">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="https://via.placeholder.com/150?text=Organic+Rice" alt="Organic Rice" class="product-img">
+                            </div>
+                            <div class="col-6">
+                                <h6>Fresh Organic Rice (5kg)</h6>
+                                <p class="text-muted small mb-1">Farm: Green Fields Organic</p>
+                                <span class="farmer-badge"><i class="fas fa-user-tie me-1"></i> Farmer: Abdul Karim</span>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="mb-1">৳450</p>
+                                <p class="text-muted small">Qty: 2</p>
+                                <p class="fw-bold">৳900</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="https://via.placeholder.com/150?text=Seasonal+Fruits" alt="Seasonal Fruits" class="product-img">
+                            </div>
+                            <div class="col-6">
+                                <h6>Seasonal Fruit Basket</h6>
+                                <p class="text-muted small mb-1">Farm: Mango Valley</p>
+                                <span class="farmer-badge"><i class="fas fa-user-tie me-1"></i> Farmer: Rahim Ahmed</span>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="mb-1">৳600</p>
+                                <p class="text-muted small">Qty: 1</p>
+                                <p class="fw-bold">৳600</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="row">
+                            <div class="col-2">
+                                <img src="https://via.placeholder.com/150?text=Fresh+Vegetables" alt="Fresh Vegetables" class="product-img">
+                            </div>
+                            <div class="col-6">
+                                <h6>Fresh Vegetable Pack</h6>
+                                <p class="text-muted small mb-1">Farm: Dhaka Greens</p>
+                                <span class="farmer-badge"><i class="fas fa-user-tie me-1"></i> Farmer: Fatema Begum</span>
+                            </div>
+                            <div class="col-4 text-end">
+                                <p class="mb-1">৳350</p>
+                                <p class="text-muted small">Qty: 1</p>
+                                <p class="fw-bold">৳350</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <!-- Payment Methods -->
+                    <h4 class="mb-4"><i class="fas fa-credit-card me-2"></i> Payment Method</h4>
+                    <div class="payment-methods">
+                        <!-- MFS Options -->
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="bkash" checked>
+                                <label class="form-check-label" for="bkash">
+                                    <img src="Bkash-Logo.jpg" alt="bKash" class="mfs-logo">
+                                    bKash
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="nagad">
+                                <label class="form-check-label" for="nagad">
+                                    <img src="Nagad-Logo.wine.png" alt="Nagad" class="mfs-logo">
+                                    Nagad
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="rocket">
+                                <label class="form-check-label" for="rocket">
+                                    <img src="dutch-bangla-rocket-logo-png_seeklogo-317692.png" alt="rocket" class="mfs-logo">
+                                    Rocket
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="card">
+                                <label class="form-check-label" for="card">
+                                    <i class="fab fa-cc-visa"></i> Credit/Debit Card
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cod">
+                                <label class="form-check-label" for="cod">
+                                    <i class="fas fa-money-bill-wave"></i> Cash on Delivery
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- bKash Payment Details -->
+                    <div id="bkashDetails">
+                        <div class="alert alert-info">
+                            <strong>How to pay with bKash:</strong><br>
+                            1. Go to bKash Menu by dialing *247#<br>
+                            2. Choose "Payment"<br>
+                            3. Enter Merchant bKash Account: 09612123456<br>
+                            4. Enter Amount: ৳1,930<br>
+                            5. Enter Reference: MARKET1234 (Your Order ID)<br>
+                            6. Enter your bKash PIN to confirm
+                        </div>
+                        <div class="mb-3">
+                            <label for="bkashNumber" class="form-label">Your bKash Number</label>
+                            <input type="text" class="form-control" id="bkashNumber" placeholder="01XXXXXXXXX">
+                        </div>
+                        <div class="mb-3">
+                            <label for="bkashTrxId" class="form-label">bKash Transaction ID</label>
+                            <input type="text" class="form-control" id="bkashTrxId" placeholder="TRX123456789">
+                        </div>
+                    </div>
+                    
+                    <!-- Nagad Payment Details -->
+                    <div id="nagadDetails" style="display: none;">
+                        <div class="alert alert-info">
+                            <strong>How to pay with Nagad:</strong><br>
+                            1. Go to Nagad Menu by dialing *167#<br>
+                            2. Choose "Payment"<br>
+                            3. Enter Merchant Nagad Account: 09612123456<br>
+                            4. Enter Amount: ৳1,930<br>
+                            5. Enter Reference: MARKET1234 (Your Order ID)<br>
+                            6. Enter your Nagad PIN to confirm
+                        </div>
+                        <div class="mb-3">
+                            <label for="nagadNumber" class="form-label">Your Nagad Number</label>
+                            <input type="text" class="form-control" id="nagadNumber" placeholder="01XXXXXXXXX">
+                        </div>
+                        <div class="mb-3">
+                            <label for="nagadTrxId" class="form-label">Nagad Transaction ID</label>
+                            <input type="text" class="form-control" id="nagadTrxId" placeholder="TRX123456789">
+                        </div>
+                    </div>
+                    
+                    <!-- Rocket Payment Details -->
+                    <div id="rocketDetails" style="display: none;">
+                        <div class="alert alert-info">
+                            <strong>How to pay with Rocket:</strong><br>
+                            1. Go to Rocket Menu by dialing *322#<br>
+                            2. Choose "Payment"<br>
+                            3. Enter Merchant Rocket Account: 09612123456<br>
+                            4. Enter Amount: ৳3,450<br>
+                            5. Enter Reference: SAH1234 (Your Order ID)<br>
+                            6. Enter your Rocket PIN to confirm
+                        </div>
+                        <div class="mb-3">
+                            <label for="rocketNumber" class="form-label">Your Rocket Number</label>
+                            <input type="text" class="form-control" id="rocketNumber" placeholder="01XXXXXXXXX">
+                        </div>
+                        <div class="mb-3">
+                            <label for="rocketTrxId" class="form-label">Rocket Transaction ID</label>
+                            <input type="text" class="form-control" id="rocketTrxId" placeholder="TRX123456789">
+                        </div>
+                    </div>
+                    
+                    <!-- Card Payment Details -->
+                    <div id="cardDetails" style="display: none;">
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456">
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="expiryDate" class="form-label">Expiry Date</label>
+                                <input type="text" class="form-control" id="expiryDate" placeholder="MM/YY">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cvv" class="form-label">CVV</label>
+                                <input type="text" class="form-control" id="cvv" placeholder="123">
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="cardName" class="form-label">Name on Card</label>
+                            <input type="text" class="form-control" id="cardName" placeholder="John Doe">
+                        </div>
+                    </div>
+                    
+                    <!-- Cash on Delivery Notice -->
+                    <div id="codDetails" style="display: none;">
+                        <div class="alert alert-warning">
+                            <strong>Note:</strong> An additional ৳20 cash handling fee will be added to your order total when paying with Cash on Delivery.
+                        </div>
+                    </div>
+                    
+                    <!-- Order Notes -->
+                    <div class="mb-3 mt-4">
+                        <label for="orderNotes" class="form-label">Order Notes (Optional)</label>
+                        <textarea class="form-control" id="orderNotes" rows="2" placeholder="Any special instructions for delivery..."></textarea>
+                    </div>
+                    
+                    <!-- Terms and Conditions -->
+                    <div class="form-check mt-4">
+                        <input class="form-check-input" type="checkbox" id="termsCheck" checked>
+                        <label class="form-check-label" for="termsCheck">
+                            I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Order Summary -->
+                <div class="col-md-4">
+                    <div class="summary-card sticky-top" style="top: 20px;">
+                        <h4 class="mb-4"><i class="fas fa-receipt me-2"></i> Order Summary</h4>
+                        
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Organic Rice (2x)</span>
+                            <span>৳900</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Seasonal Fruits</span>
+                            <span>৳600</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Fresh Vegetables</span>
+                            <span>৳350</span>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span>৳1,850</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Standard Delivery</span>
+                            <span>৳60</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-2" id="codFeeContainer" style="display: none;">
+                            <span>Cash Handling Fee</span>
+                            <span>৳20</span>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>VAT (5%)</span>
+                            <span>৳95.50</span>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="d-flex justify-content-between fw-bold fs-5">
+                            <span>Total</span>
+                            <span id="orderTotal">৳2,005.50</span>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Coupon Code">
+                                <button class="btn btn-outline-success" type="button">Apply</button>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-pay mt-3">
+                            <i class="fas fa-lock me-2"></i> Place Order
+                        </button>
+                        
+                        <div class="text-center mt-3">
+                            <p class="small text-muted">
+                                <i class="fas fa-shield-alt me-1"></i> Secure Payment. 100% Farmer Support.
+                            </p>
+                            <img src="https://via.placeholder.com/250x50?text=SSL+Commerz+Verified" alt="Payment Partners" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-leaf me-2"></i> Smart Agri Hub Market</h5>
+                    <p>Connecting consumers directly with farmers for the freshest produce in Bangladesh.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Shop Fresh Produce</a></li>
+                        <li><a href="#" class="text-white">Meet Our Farmers</a></li>
+                        <li><a href="#" class="text-white">Delivery Information</a></li>
+                        <li><a href="#" class="text-white">Return Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i> 09612-123456</li>
+                        <li><i class="fas fa-envelope me-2"></i> market@smartagrihub.com.bd</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> Farm Fresh Plaza, Dhanmondi, Dhaka</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mt-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">© 2025 Smart Agri Hub Market. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle payment method details
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Hide all payment detail sections first
+                document.getElementById('bkashDetails').style.display = 'none';
+                document.getElementById('nagadDetails').style.display = 'none';
+                document.getElementById('cardDetails').style.display = 'none';
+                document.getElementById('codDetails').style.display = 'none';
+                
+                // Show the selected payment method details
+                if (this.id === 'bkash') {
+                    document.getElementById('bkashDetails').style.display = 'block';
+                    document.getElementById('codFeeContainer').style.display = 'none';
+                    document.getElementById('orderTotal').textContent = '৳2,005.50';
+                } else if (this.id === 'nagad') {
+                    document.getElementById('nagadDetails').style.display = 'block';
+                    document.getElementById('codFeeContainer').style.display = 'none';
+                    document.getElementById('orderTotal').textContent = '৳2,005.50';
+                } else if (this.id === 'card') {
+                    document.getElementById('cardDetails').style.display = 'block';
+                    document.getElementById('codFeeContainer').style.display = 'none';
+                    document.getElementById('orderTotal').textContent = '৳2,005.50';
+                } else if (this.id === 'cod') {
+                    document.getElementById('codDetails').style.display = 'block';
+                    document.getElementById('codFeeContainer').style.display = 'flex';
+                    document.getElementById('orderTotal').textContent = '৳2,025.50';
+                }
+            });
+        });
+        
+        // Select delivery option
+        function selectDelivery(element, type) {
+            document.querySelectorAll('.delivery-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+            
+            if (type === 'standard') {
+                document.getElementById('standardDelivery').checked = true;
+                // Update delivery cost in summary
+                document.querySelector('.summary-card .d-flex.justify-content-between.mb-2:nth-child(5) span:last-child').textContent = '৳60';
+                updateOrderTotal();
+            } else {
+                document.getElementById('expressDelivery').checked = true;
+                // Update delivery cost in summary
+                document.querySelector('.summary-card .d-flex.justify-content-between.mb-2:nth-child(5) span:last-child').textContent = '৳120';
+                updateOrderTotal();
+            }
+        }
+        
+        // Update order total based on delivery and payment method
+        function updateOrderTotal() {
+            // This function would recalculate the total based on delivery and payment method
+            // Implementation depends on your specific requirements
+        }
+        
+        // Format card number input
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s+/g, '');
+            if (value.length > 0) {
+                value = value.match(new RegExp('.{1,4}', 'g')).join(' ');
+            }
+            e.target.value = value;
+        });
+        
+        // Format expiry date input
+        document.getElementById('expiryDate').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 2) {
+                value = value.substring(0, 2) + '/' + value.substring(2, 4);
+            }
+            e.target.value = value;
+        });
+        
+        // Format mobile numbers for MFS
+        const formatMobileNumber = (inputId) => {
+            document.getElementById(inputId).addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length > 0) {
+                    value = '0' + value.substring(0, 10);
+                }
+                e.target.value = value;
+            });
+        };
+        
+        formatMobileNumber('bkashNumber');
+        formatMobileNumber('nagadNumber');
+    </script>
+</body>
+</html>
