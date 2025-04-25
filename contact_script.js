@@ -61,5 +61,4 @@ function editRow(btn) {
 
 function deleteRow(btn) {
   const row = btn.closest('tr');
-  row.remove();
-}
+  
