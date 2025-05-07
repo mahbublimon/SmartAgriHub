@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Agri-Hub | Add Product</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      :root {
+        --primary-color: #28a745;
+        --secondary-color: #f8f9fa;
+        --accent-color: #ffc107;
+        --dark-color: #343a40;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .sidebar {
+        background-color: var(--dark-color);
+        color: white;
+        height: 100vh;
+        position: fixed;
+        padding-top: 20px;
+      }
+
+      .sidebar .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 5px;
+        border-radius: 5px;
+        padding: 10px 15px;
+      }
+
+      .sidebar .nav-link:hover,
+      .sidebar .nav-link.active {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .sidebar .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+
+      .header {
+        background-color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .form-card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+        background: white;
+      }
+
+      .form-title {
+        color: var(--primary-color);
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        font-weight: 600;
+        color: #555;
+      }
+
+      .btn-submit {
+        background: var(--primary-color);
+        border: none;
+        padding: 10px 25px;
+        font-weight: 600;
+      }
+
+      .btn-submit:hover {
+        background: #218838;
+      }
+
+      .preview-card {
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .preview-card:hover {
+        border-color: var(--primary-color);
+        background: rgba(40, 167, 69, 0.05);
+      }
+
+      .preview-img {
+        max-width: 100%;
+        max-height: 150px;
+        border-radius: 5px;
+      }
+
+      .price-calculation {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-top: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: relative;
+        }
+        .main-content {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar Navigation -->
+    <div class="sidebar col-md-3 col-lg-2 d-md-block">
+      <div class="text-center mb-4">
+        <h4><i class="fas fa-leaf"></i> Smart Agri-Hub</h4>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="#">
+            <i class="fas fa-plus-circle"></i> Add Product
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-shopping-basket"></i> Marketplace
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="loan_request_form.html">
+            <i class="fas fa-hand-holding-usd"></i> Loans
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-user-circle"></i> Profile
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h5 class="mb-0">
+          <i class="fas fa-plus-circle me-2"></i> Add New Product
+        </h5>
+        <div class="d-flex align-items-center">
+          <img
+            src="photo_2025-03-27_23-14-30.jpg"
+            alt="Farmer Profile Photo"
+            class="rounded-circle mb-3"
+            style="width: 80px; height: 80px"
+          />
+        </div>
+      </div>
+
+      <!-- Product Form -->
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="form-card">
+            <h4 class="form-title">
+              <i class="fas fa-seedling me-2"></i> Crop Details
+            </h4>
+
+            <!-- Step 1: Basic Information -->
+            <div class="mb-4">
+              <h6 class="mb-3">
+                <i class="fas fa-info-circle me-2 text-primary"></i>Basic
+                Information
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="cropName" class="form-label">Crop Name*</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="cropName"
+                    placeholder="e.g., BRRI dhan89 Rice"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="category" class="form-label">Category*</label>
+                  <select class="form-select" id="category" required>
+                    <option value="" selected disabled>Select Category</option>
+                    <option value="grains">Grains (Rice, Wheat)</option>
+                    <option value="vegetables">Vegetables</option>
+                    <option value="fruits">Fruits</option>
+                    <option value="spices">Spices</option>
+                    <option value="others">Others</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <label for="description" class="form-label"
+                    >Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    rows="2"
+                    placeholder="e.g., Organic, pesticide-free rice"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Upload Images -->
+            <div class="mb-4">
+              <h6 class="mb-3">
+                <i class="fas fa-images me-2 text-primary"></i>Crop Images
+              </h6>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <div
+                    class="preview-card"
+                    onclick="document.getElementById('imageUpload').click()"
+                  >
+                    <input
+                      type="file"
+                      id="imageUpload"
+                      accept="image/*"
+                      style="display: none"
+                      onchange="previewImage(event)"
+                    />
+                    <i class="fas fa-cloud-upload-alt fs-1 text-muted mb-2"></i>
+                    <p class="mb-0">Click to Upload</p>
+                    <small class="text-muted">(Max 2MB)</small>
+                    <img id="imagePreview" class="preview-img mt-2 d-none" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Quantity & Pricing -->
+            <div class="mb-4">
+              <h6 class="mb-3">
+                <i class="fas fa-tags me-2 text-primary"></i>Pricing & Quantity
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="quantity" class="form-label"
+                    >Available Quantity (kg)*</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="quantity"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="price" class="form-label"
+                    >Your Expected Price (৳/kg)*</label
+                  >
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="price"
+                    min="1"
+                    required
+                  />
+                </div>
+                <div class="col-md-4">
+                  <label for="vat" class="form-label">Service Fee (%)*</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="vat"
+                    value="5"
+                    min="0"
+                    max="20"
+                    readonly
+                  />
+                  <small class="text-muted">Platform commission</small>
+                </div>
+              </div>
+
+              <!-- Price Calculation -->
+              <div class="price-calculation mt-3">
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Your Expected Price:</span>
+                  <span id="expectedPrice">৳0</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span>Service Fee (5%):</span>
+                  <span id="serviceFee">৳0</span>
+                </div>
+                <div class="d-flex justify-content-between fw-bold">
+                  <span>Buyer Pays:</span>
+                  <span id="finalPrice">৳0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4: Additional Details -->
+            <div class="mb-4">
+              <h6 class="mb-3">
+                <i class="fas fa-clipboard-list me-2 text-primary"></i
+                >Additional Details
+              </h6>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <label for="harvestDate" class="form-label"
+                    >Harvest Date*</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="harvestDate"
+                    required
+                  />
+                </div>
+                <div class="col-md-6">
+                  <label for="location" class="form-label"
+                    >Location (District)*</label
+                  >
+                  <select class="form-select" id="location" required>
+                    <option value="" selected disabled>Select District</option>
+                    <option value="dhaka">Dhaka</option>
+                    <option value="rangpur">Rangpur</option>
+                    <option value="khulna">Khulna</option>
+                    <option value="chittagong">Chittagong</option>
+                  </select>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="organicCheck"
+                    />
+                    <label class="form-check-label" for="organicCheck">
+                      Certified Organic Produce
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-end mt-4">
+              <button class="btn btn-submit" onclick="submitProduct()">
+                <i class="fas fa-check-circle me-2"></i> Submit Product
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Preview Section -->
+        <div class="col-lg-4">
+          <div class="form-card">
+            <h4 class="form-title">
+              <i class="fas fa-eye me-2"></i> Live Preview
+            </h4>
+            <div class="card mb-3">
+              <img
+                id="previewImageDisplay"
+                src="https://via.placeholder.com/300x200?text=Preview"
+                class="card-img-top"
+                alt="Crop Preview"
+              />
+              <div class="card-body">
+                <h5 id="previewCropName" class="card-title">Crop Name</h5>
+                <p id="previewCategory" class="card-text text-muted small">
+                  Category: Not selected
+                </p>
+                <p id="previewDescription" class="card-text">
+                  Description will appear here
+                </p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <h5 id="previewPrice" class="mb-0 text-success">৳0/kg</h5>
+                  <span class="badge bg-info" id="previewQuantity">0 kg</span>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent">
+                <small class="text-muted" id="previewLocation"
+                  >Location: Not specified</small
+                >
+              </div>
+            </div>
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle me-2"></i>
+              Your product will be reviewed before appearing in marketplace.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+      // Image Preview Function
+      function previewImage(event) {
+        const input = event.target;
+        const previewCard = input.closest(".preview-card");
+        const previewImg = previewCard.querySelector(".preview-img");
+
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+
+          reader.onload = function (e) {
+            const img = document.getElementById("imagePreview");
+            img.src = e.target.result;
+            img.classList.remove("d-none");
+
+            // Update preview display
+            document.getElementById("previewImageDisplay").src =
+              e.target.result;
+
+            // Hide upload icon
+            previewCard.querySelector("i").style.display = "none";
+            previewCard.querySelector("p").style.display = "none";
+            previewCard.querySelector("small").style.display = "none";
+          };
+
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      // Live Form Updates
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get all input fields
+        const inputs = document.querySelectorAll(
+          "#cropName, #category, #description, #quantity, #price, #harvestDate, #location"
+        );
+
+        // Add event listeners for live preview
+        inputs.forEach((input) => {
+          input.addEventListener("input", updatePreview);
+        });
+
+        // Also listen for category change
+        document
+          .getElementById("category")
+          .addEventListener("change", updatePreview);
+
+        // Price calculation
+        document
+          .getElementById("price")
+          .addEventListener("input", calculatePrices);
+        document
+          .getElementById("quantity")
+          .addEventListener("input", calculatePrices);
+      });
+
+      // Update Preview Function
+      function updatePreview() {
+        document.getElementById("previewCropName").textContent =
+          document.getElementById("cropName").value || "Crop Name";
+
+        const category = document.getElementById("category").value;
+        document.getElementById("previewCategory").textContent = category
+          ? `Category: ${category.charAt(0).toUpperCase() + category.slice(1)}`
+          : "Category: Not selected";
+
+        document.getElementById("previewDescription").textContent =
+          document.getElementById("description").value ||
+          "Description will appear here";
+
+        document.getElementById("previewQuantity").textContent =
+          document.getElementById("quantity").value
+            ? `${document.getElementById("quantity").value} kg`
+            : "0 kg";
+
+        document.getElementById("previewLocation").textContent =
+          document.getElementById("location").value
+            ? `Location: ${document.getElementById("location").value}`
+            : "Location: Not specified";
+      }
+
+      // Calculate Prices with Service Fee
+      function calculatePrices() {
+        const quantity =
+          parseFloat(document.getElementById("quantity").value) || 0;
+        const pricePerKg =
+          parseFloat(document.getElementById("price").value) || 0;
+        const vatPercentage =
+          parseFloat(document.getElementById("vat").value) || 0;
+
+        const expectedPrice = quantity * pricePerKg;
+        const serviceFee = expectedPrice * (vatPercentage / 100);
+        const finalPrice = expectedPrice + serviceFee;
+
+        document.getElementById(
+          "expectedPrice"
+        ).textContent = `৳${expectedPrice.toFixed(2)}`;
+        document.getElementById(
+          "serviceFee"
+        ).textContent = `৳${serviceFee.toFixed(2)}`;
+        document.getElementById(
+          "finalPrice"
+        ).textContent = `৳${finalPrice.toFixed(2)}`;
+
+        // Update preview price
+        document.getElementById(
+          "previewPrice"
+        ).textContent = `৳${pricePerKg.toFixed(2)}/kg`;
+      }
+
+      // Submit Product (Mock Function)
+      function submitProduct() {
+        // Validate form
+        const requiredFields = [
+          "cropName",
+          "category",
+          "quantity",
+          "price",
+          "harvestDate",
+          "location",
+        ];
+        let isValid = true;
+
+        requiredFields.forEach((fieldId) => {
+          const field = document.getElementById(fieldId);
+          if (!field.value) {
+            field.classList.add("is-invalid");
+            isValid = false;
+          } else {
+            field.classList.remove("is-invalid");
+          }
+        });
+
+        if (!isValid) {
+          alert("Please fill all required fields!");
+          return;
+        }
+
+        // In a real app, you would send data to backend here
+        alert(
+          "Product submitted successfully! It will be reviewed before appearing in marketplace."
+        );
+
+        // Reset form (optional)
+        // document.getElementById('productForm').reset();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Agri-Hub | Farmer Dashboard</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <!-- Custom CSS -->
+    <style>
+      :root {
+        --primary-color: #2e7d32;
+        --secondary-color: #81c784;
+        --accent-color: #ff9800;
+        --dark-color: #1b5e20;
+        --light-color: #f1f8e9;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .sidebar {
+        background-color: var(--primary-color);
+        color: white;
+        height: 100vh;
+        position: fixed;
+        padding-top: 20px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .sidebar .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 5px;
+        border-radius: 5px;
+        padding: 10px 15px;
+      }
+
+      .sidebar .nav-link:hover,
+      .sidebar .nav-link.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+      }
+
+      .sidebar .nav-link i {
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+
+      .main-content {
+        margin-left: 250px;
+        padding: 20px;
+      }
+
+      .header {
+        background-color: white;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+        transition: transform 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card-header {
+        background-color: var(--primary-color);
+        color: white;
+        border-radius: 10px 10px 0 0 !important;
+        padding: 15px 20px;
+        font-weight: 600;
+      }
+
+      .stats-card {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .stats-card .value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      .stats-card .label {
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .btn-primary:hover {
+        background-color: var(--dark-color);
+        border-color: var(--dark-color);
+      }
+
+      .btn-outline-primary {
+        color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+
+      .btn-outline-primary:hover {
+        background-color: var(--primary-color);
+        color: white;
+      }
+
+      .crop-health {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .health-indicator {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .health-good {
+        background-color: #4caf50;
+      }
+
+      .health-warning {
+        background-color: #ffc107;
+      }
+
+      .health-critical {
+        background-color: #f44336;
+      }
+
+      .progress {
+        height: 10px;
+        border-radius: 5px;
+      }
+
+      .progress-bar {
+        background-color: var(--primary-color);
+      }
+
+      .weather-card {
+        background: linear-gradient(135deg, #64b5f6, #1976d2);
+        color: white;
+        border-radius: 10px;
+        padding: 15px;
+      }
+
+      .weather-icon {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      .market-price {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+      }
+
+      .market-price:last-child {
+        border-bottom: none;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+      }
+
+      .user-profile img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: var(--accent-color);
+        color: white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+      }
+
+      @media (max-width: 992px) {
+        .sidebar {
+          width: 70px;
+          overflow: hidden;
+        }
+
+        .sidebar .nav-link span {
+          display: none;
+        }
+
+        .sidebar .nav-link i {
+          margin-right: 0;
+          font-size: 1.2rem;
+        }
+
+        .main-content {
+          margin-left: 70px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar col-md-3 col-lg-2">
+      <div class="text-center mb-4">
+        <img
+          src="photo_2025-03-27_23-14-30.jpg"
+          alt="Farmer Profile Photo"
+          class="rounded-circle mb-2"
+          style="width: 80px; height: 80px"
+        />
+        <h6 class="text-white">Rahman</h6>
+      </div>
+
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">
+            <i class="fas fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-leaf"></i>
+            <span>My Crops</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-tractor"></i>
+            <span>Farming Tools</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="loan_request_form.html">
+            <i class="fas fa-hand-holding-usd"></i>
+            <span>Loans</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-shopping-basket"></i>
+            <span>Marketplace</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-chart-line"></i>
+            <span>Analytics</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <div class="header">
+        <h4>Welcome back, <strong>Farmer Rahman</strong></h4>
+        <div class="d-flex align-items-center">
+          <div class="position-relative me-3">
+            <i class="fas fa-bell fa-lg text-muted"></i>
+            <span class="notification-badge">3</span>
+          </div>
+          <div class="user-profile">
+            <img src="https://via.placeholder.com/150" alt="User" />
+            <span>Rahman</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div class="row">
+        <!-- Quick Stats -->
+        <div class="col-md-6 col-lg-3">
+          <div class="card stats-card">
+            <div class="value">5.2 <small>acre</small></div>
+            <div class="label">Land Size</div>
+            <i class="fas fa-map-marked-alt mt-3 text-primary"></i>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card stats-card">
+            <div class="value">3</div>
+            <div class="label">Active Crops</div>
+            <i class="fas fa-seedling mt-3 text-primary"></i>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card stats-card">
+            <div class="value">৳12,500</div>
+            <div class="label">Monthly Earnings</div>
+            <i class="fas fa-money-bill-wave mt-3 text-primary"></i>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="card stats-card">
+            <div class="value">৳25,000</div>
+            <div class="label">Available Loan</div>
+            <i class="fas fa-hand-holding-usd mt-3 text-primary"></i>
+          </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-lg-8">
+          <!-- Crop Health Monitoring -->
+          <div class="card">
+            <div class="card-header">
+              <i class="fas fa-heartbeat me-2"></i> Crop Health Monitoring
+            </div>
+            <div class="card-body">
+              <div class="crop-health">
+                <div class="health-indicator health-good"></div>
+                <div class="flex-grow-1">
+                  <strong>Rice Field (2.1 acre)</strong>
+                  <div class="progress mt-1">
+                    <div class="progress-bar" style="width: 85%"></div>
+                  </div>
+                </div>
+                <span class="text-success">85% Healthy</span>
+              </div>
+              <div class="crop-health">
+                <div class="health-indicator health-warning"></div>
+                <div class="flex-grow-1">
+                  <strong>Potato Field (1.5 acre)</strong>
+                  <div class="progress mt-1">
+                    <div class="progress-bar" style="width: 65%"></div>
+                  </div>
+                </div>
+                <span class="text-warning">65% Healthy</span>
+              </div>
+              <div class="crop-health">
+                <div class="health-indicator health-critical"></div>
+                <div class="flex-grow-1">
+                  <strong>Tomato Field (0.8 acre)</strong>
+                  <div class="progress mt-1">
+                    <div class="progress-bar" style="width: 40%"></div>
+                  </div>
+                </div>
+                <span class="text-danger">40% Healthy</span>
+              </div>
+              <button class="btn btn-primary mt-3">
+                <i class="fas fa-diagnoses me-2"></i> Diagnose Issues
+              </button>
+            </div>
+          </div>
+
+          <!-- AI Recommendations -->
+          <div class="card">
+            <div class="card-header">
+              <i class="fas fa-robot me-2"></i> AI Farming Recommendations
+            </div>
+            <div class="card-body">
+              <div class="alert alert-success">
+                <strong
+                  ><i class="fas fa-check-circle me-2"></i> Recommended
+                  Action:</strong
+                >
+                Increase irrigation for tomato field by 20% for next 3 days.
+              </div>
+              <div class="alert alert-warning">
+                <strong
+                  ><i class="fas fa-exclamation-triangle me-2"></i> Pest
+                  Alert:</strong
+                >
+                High risk of rice blast detected. Apply Tricyclazole within 48
+                hours.
+              </div>
+              <div class="alert alert-info">
+                <strong
+                  ><i class="fas fa-lightbulb me-2"></i> Market Insight:</strong
+                >
+                Switch 0.5 acre to quinoa cultivation - expected 30% higher
+                profit.
+              </div>
+              <div class="text-center">
+                <button class="btn btn-outline-primary me-2">
+                  <i class="fas fa-question-circle me-2"></i> Ask AI Assistant
+                </button>
+                <button class="btn btn-primary">
+                  <i class="fas fa-seedling me-2"></i> View Crop Plan
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="col-lg-4">
+          <!-- Weather Forecast -->
+          <div class="card weather-card">
+            <div class="card-body text-white">
+              <div
+                class="d-flex justify-content-between align-items-center mb-3"
+              >
+                <h5 class="mb-0">
+                  <i class="fas fa-cloud-sun me-2"></i> Weather Forecast
+                </h5>
+                <span>Today, June 15</span>
+              </div>
+              <div class="text-center mb-3">
+                <div class="weather-icon">
+                  <i class="fas fa-sun"></i>
+                </div>
+                <h2>32°C</h2>
+                <p>Sunny with occasional clouds</p>
+              </div>
+              <div class="row text-center">
+                <div class="col">
+                  <div>Humidity</div>
+                  <div class="fw-bold">65%</div>
+                </div>
+                <div class="col">
+                  <div>Rainfall</div>
+                  <div class="fw-bold">10%</div>
+                </div>
+                <div class="col">
+                  <div>Wind</div>
+                  <div class="fw-bold">12 km/h</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Market Prices -->
+          <div class="card">
+            <div class="card-header">
+              <i class="fas fa-tags me-2"></i> Today's Market Prices
+            </div>
+            <div class="card-body">
+              <div class="market-price">
+                <span>Rice (per kg)</span>
+                <strong>৳45</strong>
+              </div>
+              <div class="market-price">
+                <span>Potato (per kg)</span>
+                <strong>৳30</strong>
+              </div>
+              <div class="market-price">
+                <span>Tomato (per kg)</span>
+                <strong>৳60</strong>
+              </div>
+              <div class="market-price">
+                <span>Lentils (per kg)</span>
+                <strong>৳120</strong>
+              </div>
+              <div class="market-price">
+                <span>Onion (per kg)</span>
+                <strong>৳55</strong>
+              </div>
+              <button class="btn btn-outline-primary w-100 mt-2">
+                <i class="fas fa-chart-line me-2"></i> View Price Trends
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="card">
+            <div class="card-header">
+              <i class="fas fa-bolt me-2"></i> Quick Actions
+            </div>
+            <div class="card-body">
+              <button class="btn btn-primary w-100 mb-2">
+                <i class="fas fa-hand-holding-usd me-2"></i> Apply for Loan
+              </button>
+              <button class="btn btn-outline-primary w-100 mb-2">
+                <i class="fas fa-shopping-basket me-2"></i> Sell Crops
+              </button>
+              <button class="btn btn-outline-primary w-100 mb-2">
+                <i class="fas fa-question-circle me-2"></i> Get Expert Help
+              </button>
+              <button class="btn btn-outline-primary w-100">
+                <i class="fas fa-book me-2"></i> Learning Center
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JS -->
+    <script>
+      // Sample JavaScript for interactive elements
+      document.addEventListener("DOMContentLoaded", function () {
+        // Simulate loading data
+        setTimeout(() => {
+          document.querySelectorAll(".stats-card").forEach((card) => {
+            card.classList.add("animate__animated", "animate__fadeInUp");
+          });
+        }, 300);
+
+        // Add click event for notification bell
+        document
+          .querySelector(".fa-bell")
+          .addEventListener("click", function () {
+            alert("You have 3 new notifications");
+          });
+
+        // Sample function for crop diagnosis
+        document
+          .querySelector(".btn-primary")
+          .addEventListener("click", function () {
+            alert("Please upload photos of your crops for AI diagnosis");
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Investor Dashboard | Smart Agri-Hub</title>
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #28a745;
+        --secondary: #f8f9fa;
+        --dark: #343a40;
+      }
+
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f5f5f5;
+      }
+
+      .sidebar {
+        background-color: var(--dark);
+        color: white;
+        height: 100vh;
+        padding-top: 20px;
+      }
+
+      .sidebar .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        padding: 10px 15px;
+        margin-bottom: 5px;
+      }
+
+      .sidebar .nav-link.active {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .main-content {
+        padding: 20px;
+      }
+
+      .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-card {
+        text-align: center;
+        padding: 20px;
+      }
+
+      .stat-card .value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: var(--primary);
+      }
+
+      .farmer-badge {
+        background: #e9ecef;
+        padding: 3px 8px;
+        border-radius: 10px;
+        font-size: 0.9rem;
+      }
+
+      .farmer-badge img {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar">
+          <div class="text-center mb-4">
+            <h5><i class="fas fa-leaf me-2"></i> Agri-Invest</h5>
+          </div>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">
+                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-search-dollar me-2"></i> Browse Loans
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-hand-holding-usd me-2"></i> My Investments
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-user me-2"></i> Profile
+              </a>
+            </li>
+            <li class="nav-item mt-3">
+              <a class="nav-link" href="#">
+                <i class="fas fa-sign-out-alt me-2"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-lg-10 main-content">
+          <!-- Header -->
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4>Investor Dashboard</h4>
+            <div class="d-flex align-items-center">
+              <i class="fas fa-bell me-3 text-muted"></i>
+              <img
+                src="https://randomuser.me/api/portraits/men/32.jpg"
+                class="rounded-circle"
+                width="40"
+                height="40"
+              />
+            </div>
+          </div>
+
+          <!-- Stats Row -->
+          <div class="row mb-4">
+            <div class="col-md-6 col-lg-3 mb-3">
+              <div class="card stat-card">
+                <div class="value">৳1,250,000</div>
+                <div class="text-muted">Total Invested</div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-3">
+              <div class="card stat-card">
+                <div class="value">15%</div>
+                <div class="text-muted">Avg. ROI</div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-3">
+              <div class="card stat-card">
+                <div class="value">24</div>
+                <div class="text-muted">Active Loans</div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3 mb-3">
+              <div class="card stat-card">
+                <div class="value">98%</div>
+                <div class="text-muted">Repayment Rate</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Active Loans -->
+          <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+              <i class="fas fa-hand-holding-usd me-2"></i> Active Investments
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Farmer</th>
+                      <th>Purpose</th>
+                      <th>Amount</th>
+                      <th>ROI</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="farmer-badge">
+                          <img
+                            src="https://randomuser.me/api/portraits/men/41.jpg"
+                          />
+                          Rahman
+                        </span>
+                      </td>
+                      <td>Rice cultivation</td>
+                      <td>৳50,000</td>
+                      <td>12%</td>
+                      <td><span class="badge bg-success">Active</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="farmer-badge">
+                          <img
+                            src="https://randomuser.me/api/portraits/women/63.jpg"
+                          />
+                          Akter
+                        </span>
+                      </td>
+                      <td>Tomato greenhouse</td>
+                      <td>৳75,000</td>
+                      <td>15%</td>
+                      <td><span class="badge bg-success">Active</span></td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="farmer-badge">
+                          <img
+                            src="https://randomuser.me/api/portraits/men/22.jpg"
+                          />
+                          Hossain
+                        </span>
+                      </td>
+                      <td>Potato storage</td>
+                      <td>৳120,000</td>
+                      <td>10%</td>
+                      <td>
+                        <span class="badge bg-warning text-dark">Pending</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- New Opportunities -->
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              <i class="fas fa-search-dollar me-2"></i> New Investment
+              Opportunities
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Farmer</th>
+                      <th>Purpose</th>
+                      <th>Amount</th>
+                      <th>ROI</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="farmer-badge">
+                          <img
+                            src="https://randomuser.me/api/portraits/men/45.jpg"
+                          />
+                          Karim
+                        </span>
+                      </td>
+                      <td>Organic fertilizer</td>
+                      <td>৳85,000</td>
+                      <td>18%</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary">Invest</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="farmer-badge">
+                          <img
+                            src="https://randomuser.me/api/portraits/women/33.jpg"
+                          />
+                          Begum
+                        </span>
+                      </td>
+                      <td>Poultry farm</td>
+                      <td>৳65,000</td>
+                      <td>14%</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary">Invest</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
