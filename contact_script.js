@@ -1,13 +1,18 @@
 function startVideoCall() {
-  alert("🔴 Starting a video call...");
+  document.getElementById("video-call-scene").style.display = "flex";
 }
 
 function startAudioCall() {
-  alert("🎧 Sending an audio message...");
+  document.getElementById("audio-call-scene").style.display = "flex";
 }
 
 function openChat() {
   alert("💬 Opening বাংলা chat interface...");
+}
+
+function closeCallScene() {
+  document.getElementById("video-call-scene").style.display = "none";
+  document.getElementById("audio-call-scene").style.display = "none";
 }
 
 function addRow(tableId) {
@@ -63,3 +68,4 @@ function deleteRow(btn) {
   const row = btn.closest('tr');
   row.remove();
 }
+S
