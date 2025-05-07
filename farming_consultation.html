@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FarmConnect - Farmer Consultation</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="farming_consultation.css" />
+</head>
+<body>
+
+<div class="container-fluid py-4">
+  <div class="row">
+    <!-- Left: Consultant Profiles -->
+    <div class="col-lg-9">
+      <header class="text-center mb-4">
+        <h1 class="text-success">🌾 FarmConnect: Farmer Help Desk</h1>
+        <p class="text-muted">Talk to trusted experts in crops, livestock, and product care</p>
+      </header>
+
+      <div class="row" id="consultant-list">
+        <!-- Consultant cards will be injected here -->
+      </div>
+    </div>
+
+    <!-- Right: Chat Widget -->
+    <div class="col-lg-3">
+      <div class="card shadow-sm" id="chat-widget">
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+          💬 Chat & Support
+          <button class="btn btn-sm btn-light" onclick="playBanglaTranslation()">🔈 বাংলা</button>
+        </div>
+        <div class="card-body">
+          <textarea class="form-control mb-2" rows="3" placeholder="Type your message here..."></textarea>
+          <div class="d-grid gap-2 mb-2">
+            <button class="btn btn-sm btn-success">📤 Send</button>
+            <button class="btn btn-sm btn-secondary" onclick="recordAudio()">🎙️ Voice Message</button>
+          </div>
+
+          <label class="form-label">🖼️ Upload image of crop or product</label>
+          <input type="file" class="form-control mb-3" accept="image/*" />
+
+          <div class="d-grid gap-2">
+            <button class="btn btn-outline-primary">📞 Audio Call</button>
+            <button class="btn btn-outline-danger">🎥 Video Call</button>
+            <button class="btn btn-outline-success">📅 Book Appointment</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="farming_consultation.js"></script>
+<script src="https://code.responsivevoice.org/responsivevoice.js?key=YOUR_KEY"></script>
+<script>
+function playBanglaTranslation() {
+  const text = "Chat and Support section. You can send messages, upload images, record voice, and make calls.";
+  responsiveVoice.speak(text, "Bangla Male");
+}
+
+function recordAudio() {
+  alert("Voice recording feature requires backend or browser permissions. Simulated here.");
+}
+</script>
+</body>
+</html>
