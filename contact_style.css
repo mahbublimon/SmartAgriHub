@@ -90,7 +90,7 @@ footer {
   color: #666;
 }
 
-/* New Call Scene Styles */
+/* Video/Audio Call Scenes */
 .call-scene {
   position: fixed;
   top: 0;
@@ -121,4 +121,63 @@ footer {
   margin-top: 20px;
   background-color: #d32f2f;
 }
-S
+
+/* Chat Box Styling */
+.chat-box {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 300px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.chat-header {
+  background-color: #1b5e20;
+  color: #fff;
+  padding: 10px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-messages {
+  height: 200px;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #f9f9f9;
+  font-size: 0.9em;
+}
+
+.chat-input {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-bottom-left-radius: 12px;
+}
+
+.chat-input button {
+  padding: 8px 12px;
+  border: none;
+  background-color: #43a047;
+  color: white;
+  border-bottom-right-radius: 12px;
+  cursor: pointer;
+}
+
+.chat-input button:hover {
+  background-color: #2e7d32;
+}
