@@ -89,3 +89,36 @@ footer {
   font-size: 0.9em;
   color: #666;
 }
+
+/* New Call Scene Styles */
+.call-scene {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 100, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.call-box {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+
+.call-box h2 {
+  color: #2e7d32;
+  margin-bottom: 10px;
+}
+
+.call-box button {
+  margin-top: 20px;
+  background-color: #d32f2f;
+}
+S
