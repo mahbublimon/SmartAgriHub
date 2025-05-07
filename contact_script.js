@@ -6,13 +6,36 @@ function startAudioCall() {
   document.getElementById("audio-call-scene").style.display = "flex";
 }
 
-function openChat() {
-  alert("💬 Opening বাংলা chat interface...");
-}
-
 function closeCallScene() {
   document.getElementById("video-call-scene").style.display = "none";
   document.getElementById("audio-call-scene").style.display = "none";
+}
+
+function openChat() {
+  document.getElementById("chat-box").style.display = "flex";
+}
+
+function closeChat() {
+  document.getElementById("chat-box").style.display = "none";
+}
+
+function sendMessage() {
+  const input = document.getElementById("chat-input");
+  const msg = input.value.trim();
+  if (msg !== "") {
+    const chat = document.getElementById("chat-messages");
+    const newMsg = document.createElement("p");
+    newMsg.textContent = "🧑‍🌾 You: " + msg;
+    chat.appendChild(newMsg);
+    input.value = "";
+    chat.scrollTop = chat.scrollHeight;
+  }
+}
+
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
 }
 
 function addRow(tableId) {
@@ -68,4 +91,3 @@ function deleteRow(btn) {
   const row = btn.closest('tr');
   row.remove();
 }
-S
