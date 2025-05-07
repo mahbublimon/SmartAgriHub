@@ -1,0 +1,91 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f4f9f4;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+}
+
+header {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+header h1 {
+  color: #2e7d32;
+}
+
+.main-layout {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.left-content {
+  flex: 2;
+}
+
+.contact-section {
+  margin-bottom: 40px;
+}
+
+.contact-section h2 {
+  border-bottom: 2px solid #81c784;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  color: #1b5e20;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border-bottom: 1px solid #ccc;
+  padding: 12px;
+  text-align: left;
+}
+
+button {
+  padding: 5px 10px;
+  margin-right: 4px;
+  border: none;
+  border-radius: 4px;
+  background-color: #43a047;
+  color: white;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2e7d32;
+}
+
+.live-consultation-box {
+  flex: 1;
+  background-color: #e8f5e9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  min-width: 280px;
+  margin-top: 30px;
+}
+
+.live-consultation-box h3 {
+  color: #1b5e20;
+}
+
+footer {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 0.9em;
+  color: #666;
+}
