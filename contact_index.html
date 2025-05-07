@@ -140,7 +140,21 @@
     </div>
   </div>
 
+  <!-- Chat Box -->
+  <div id="chat-box" class="chat-box" style="display: none;">
+    <div class="chat-header">
+      <span>💬 বাংলা Chat Support</span>
+      <button onclick="closeChat()">❌</button>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <p><em>Support Agent joined the chat...</em></p>
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chat-input" placeholder="Type your message..." onkeypress="handleKeyPress(event)" />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
   <script src="contact_script.js"></script>
 </body>
 </html>
-SS
